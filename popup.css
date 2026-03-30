@@ -20,7 +20,7 @@
 @media (prefers-color-scheme: dark) {
 	:root {
 		--bg: #18181b;
-		--bg-input: #28283c;
+		--bg-input: #2c2c30;
 		--bg-hover: #27272a;
 		--text: #e4e4e7;
 		--text-bright: #fafafa;
@@ -29,6 +29,9 @@
 		--text-placeholder: #52525b;
 		--border: #27272a;
 		--border-light: #3f3f46;
+		--accent: #e4e4e7;
+		--accent-hover: #f4f4f5;
+		--accent-foreground: #18181b;
 	}
 }
 
