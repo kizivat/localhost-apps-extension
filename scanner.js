@@ -419,11 +419,13 @@ export function parsePortConfig(config) {
 }
 
 /**
- * Scan all configured ports concurrently. Returns an array of found apps.
+ * Scan all configured ports concurrently. Calls onFound for each result as
+ * it arrives, and returns the full array when all probes have settled.
  * @param {string} [portConfig]
+ * @param {(app: {port: number, url: string, title: string, debug: TitleDebug}) => void} [onFound]
  * @returns {Promise<Array<{port: number, url: string, title: string}>>}
  */
-export async function scanPorts(portConfig) {
+export async function scanPorts(portConfig, onFound) {
 	const config = portConfig || DEFAULT_PORT_RANGES;
 	const ports = parsePortConfig(config);
 	console.log(`[scanner] scanPorts: scanning ${ports.length} ports:`, ports);
@@ -433,7 +435,11 @@ export async function scanPorts(portConfig) {
 	const timeout = setTimeout(() => controller.abort(), 5000);
 
 	const results = await Promise.all(
-		ports.map((port) => probePort(port, controller.signal)),
+		ports.map(async (port) => {
+			const result = await probePort(port, controller.signal);
+			if (result !== null) onFound?.(result);
+			return result;
+		}),
 	);
 
 	clearTimeout(timeout);

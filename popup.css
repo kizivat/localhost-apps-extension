@@ -41,6 +41,10 @@
 	box-sizing: border-box;
 }
 
+.hidden {
+	display: none !important;
+}
+
 body {
 	width: 340px;
 	font-family:
@@ -155,6 +159,12 @@ body {
 	padding: 10px 14px;
 	border-bottom: 1px solid var(--border);
 	transition: background 0.1s;
+}
+
+.app-list li.duplicate-title {
+	padding-left: 11px;
+	border-left: 3px solid var(--port-color);
+	border-radius: 0 4px 4px 0;
 }
 
 .app-list li.selected {
@@ -301,7 +311,7 @@ body {
 
 /* Settings panel */
 .settings-panel {
-	padding: 12px 14px;
+	padding: 0 0 12px;
 	border-top: 1px solid var(--border);
 }
 
@@ -309,11 +319,42 @@ body {
 	display: none;
 }
 
-.settings-panel h2 {
-	font-size: 13px;
-	font-weight: 600;
+.settings-tabs {
+	display: flex;
+	border-bottom: 1px solid var(--border);
+	padding: 0 14px;
+}
+
+.settings-tab {
+	background: none;
+	border: none;
+	border-bottom: 2px solid transparent;
+	margin-bottom: -1px;
+	padding: 8px 10px 7px;
+	font-size: 12px;
+	font-family: inherit;
+	color: var(--text-muted);
+	cursor: pointer;
+	transition:
+		color 0.15s,
+		border-color 0.15s;
+}
+
+.settings-tab:hover {
 	color: var(--text-bright);
-	margin-bottom: 4px;
+}
+
+.settings-tab.active {
+	color: var(--text-bright);
+	border-bottom-color: var(--accent);
+}
+
+.settings-tab-panel {
+	padding: 12px 14px 0;
+}
+
+.settings-tab-panel.hidden {
+	display: none;
 }
 
 .hint {
@@ -344,6 +385,7 @@ body {
 	gap: 8px;
 	justify-content: flex-end;
 	margin-top: 8px;
+	padding: 0 14px;
 }
 
 #save-settings {
@@ -359,4 +401,53 @@ body {
 
 #save-settings:hover {
 	background: var(--accent-hover);
+}
+
+/* Port color picker */
+.port-color-list {
+	list-style: none;
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+}
+
+.port-color-row {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.port-color-label {
+	font-family: "SF Mono", "Fira Code", monospace;
+	font-size: 12px;
+	color: var(--text-muted);
+	min-width: 42px;
+}
+
+.color-palette {
+	display: flex;
+	gap: 6px;
+	flex-wrap: wrap;
+}
+
+.swatch {
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	border: 2px solid transparent;
+	background-color: var(--swatch-color);
+	cursor: pointer;
+	padding: 0;
+	transition:
+		transform 0.1s,
+		border-color 0.1s;
+}
+
+.swatch:hover {
+	transform: scale(1.15);
+}
+
+.swatch.active {
+	border-color: var(--text-bright);
+	transform: scale(1.15);
 }
