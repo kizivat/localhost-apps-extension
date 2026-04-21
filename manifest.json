@@ -1,7 +1,7 @@
 {
 	"manifest_version": 3,
 	"name": "Localhost Apps",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"description": "View and open running localhost dev servers at a glance.",
 	"permissions": ["storage"],
 	"host_permissions": ["http://localhost/*", "http://127.0.0.1/*"],
