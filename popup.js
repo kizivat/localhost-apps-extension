@@ -149,9 +149,20 @@ async function refresh() {
       <button class="app-open">Open</button>
     `;
 
+		// Build debug tooltip text
+		const debugLines = [];
+		if (app.debug?.source) debugLines.push(`Source: ${app.debug.source}`);
+		if (app.debug?.redirectChain)
+			debugLines.push(`Redirects: ${app.debug.redirectChain}`);
+		if (app.debug?.tried?.length)
+			debugLines.push(`Tried: ${app.debug.tried.join(", ")}`);
+		const debugText = debugLines.join("\n");
+
 		// Set text content safely (no innerHTML injection)
 		li.dataset.url = app.url;
-		li.querySelector(".app-title").textContent = app.title;
+		const titleEl = li.querySelector(".app-title");
+		titleEl.textContent = app.title;
+		if (debugText) titleEl.title = debugText;
 		li.querySelector(".app-url").textContent = app.url;
 		li.querySelector(".app-open").addEventListener("click", (e) => {
 			openUrl(app.url, e.metaKey || e.ctrlKey);
